@@ -6,15 +6,21 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-export function Todoadd({ data, onDelete }) {
+export function Todoadd({ data, onDelete, onEdit }) {
   const [selectedOption, setSelectedOption] = useState(data.status);
   const [showModal, setShowModal] = useState(false);
   const [editedTodo, setEditedTodo] = useState(data);
-
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const [editIndex, setEditIndex] = useState(null);
+  
+  const handleClose = () =>{
+    setEditedTodo(data);
+     setShowModal(false)};
+  const handleShow = (index) =>{
+    setEditIndex(index);
+     setShowModal(true)};
 
   const handleSave = () => {
+    onEdit(editedTodo, editIndex);
     handleClose();
   };
 
@@ -32,8 +38,8 @@ export function Todoadd({ data, onDelete }) {
     <Col>
       <Card className='cardmargin'>
         <Card.Body>
-          <Card.Text>Name: {editedTodo.todoName}</Card.Text>
-          <Card.Text>Description: {editedTodo.Description}</Card.Text>
+          <Card.Text>Name: {data.todoName}</Card.Text>
+          <Card.Text>Description: {data.Description}</Card.Text>
           <Card.Text>
             status: <Dropdown className="d-inline mx-2" onSelect={(value) => (setSelectedOption(value))}>
               <Dropdown.Toggle variant={selectedOption === "Completed" ? "success" : "danger"} id="dropdown-basic">

@@ -34,12 +34,12 @@ const handleDelete = (todoToDelete) => {
   settododata(updatedTodos);
 };
 
-
-// const handleEdit = (todoToEdit) => {
-//   // Add your edit functionality here
-//   console.log("Editing todo:", todoToEdit);
-// };
-
+const handleEdit = (editedTodo, index) => {
+  console.log(editedTodo)
+  const updatedTodos = [...tododata];
+  updatedTodos[index] = editedTodo; // Update the todo at the specified index
+  settododata(updatedTodos);
+};
 
   return (
     <Container>
@@ -77,7 +77,7 @@ const handleDelete = (todoToDelete) => {
       <Row className='rowpad'>
         
     {tododata.map((td, index)=> { 
-      return <Todoadd data={td} key={index} onDelete={handleDelete} />
+      return <Todoadd data={td} key={index} onDelete={handleDelete} onEdit={(editedTodo) => handleEdit(editedTodo, index)} />
      })}
      </Row>
     </Container>
