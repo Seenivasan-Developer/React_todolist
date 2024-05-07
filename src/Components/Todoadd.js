@@ -20,10 +20,12 @@ export function Todoadd({ data, onDelete }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditedTodo({
+    if (value.trim() !== '') {
+      setEditedTodo({
       ...editedTodo,
       [name]: value
     });
+  }
   };
 
   return (

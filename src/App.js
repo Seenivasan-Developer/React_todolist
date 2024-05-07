@@ -55,6 +55,7 @@ const handleDelete = (todoToDelete) => {
         </Col>
         <Col>
         <Button variant="success" type="button" onClick={()=>{
+          if(todoName!=="" && todoDesc !==""){
           const newdata={
             todoName: todoName,
     Description: todoDesc,
@@ -63,6 +64,10 @@ const handleDelete = (todoToDelete) => {
           settododata([...tododata,newdata]);
           settodoDesc("");
           settodoName("");
+        }
+        else{
+          alert("Enter Valid data...");
+        }
         }}>
         Submit
       </Button>
