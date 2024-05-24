@@ -10,3 +10,8 @@
 .cardmargin{
   margin-bottom: 15px;
 }
+.mytodos{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

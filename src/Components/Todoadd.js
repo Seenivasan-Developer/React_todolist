@@ -10,17 +10,16 @@ export function Todoadd({ data, onDelete, onEdit }) {
   const [selectedOption, setSelectedOption] = useState(data.status);
   const [showModal, setShowModal] = useState(false);
   const [editedTodo, setEditedTodo] = useState(data);
-  const [editIndex, setEditIndex] = useState(null);
   
   const handleClose = () =>{
     setEditedTodo(data);
      setShowModal(false)};
-  const handleShow = (index) =>{
-    setEditIndex(index);
+
+  const handleShow = () =>{
      setShowModal(true)};
 
   const handleSave = () => {
-    onEdit(editedTodo, editIndex);
+    onEdit(editedTodo);
     handleClose();
   };
 
@@ -34,6 +33,13 @@ export function Todoadd({ data, onDelete, onEdit }) {
   }
   };
 
+  const handleStatusChange = (status) => {
+    setSelectedOption(status);
+    const updatedTodo = { ...editedTodo, status };
+    setEditedTodo(updatedTodo);
+    onEdit(updatedTodo);
+  };
+
   return (
     <Col>
       <Card className='cardmargin'>
@@ -41,7 +47,7 @@ export function Todoadd({ data, onDelete, onEdit }) {
           <Card.Text>Name: {data.todoName}</Card.Text>
           <Card.Text>Description: {data.Description}</Card.Text>
           <Card.Text>
-            status: <Dropdown className="d-inline mx-2" onSelect={(value) => (setSelectedOption(value))}>
+            status: <Dropdown className="d-inline mx-2" onSelect={handleStatusChange}>
               <Dropdown.Toggle variant={selectedOption === "Completed" ? "success" : "danger"} id="dropdown-basic">
                 {selectedOption}
               </Dropdown.Toggle>
@@ -54,7 +60,7 @@ export function Todoadd({ data, onDelete, onEdit }) {
           </Card.Text>
           <div className='text-end'>
             <Button variant="success" className='btnmargin' onClick={handleShow}>Edit</Button>
-            <Button variant="danger" onClick={()=>{onDelete(data)}}>Delete</Button></div>
+            <Button variant="danger" onClick={onDelete}>Delete</Button></div>
         </Card.Body>
       </Card>
 
